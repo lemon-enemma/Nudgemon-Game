@@ -19,6 +19,18 @@ public class Nudgemon {
         else if (loveRating >=90){
             System.out.println("You have a strong bond with " + species + ". Great job taking care of it!");
         }
+        else if (loveRating >= 70){
+            System.out.println("Your bond with " + species + " is getting strong! Keep taking care of it!");
+        }
+        else if (loveRating >= 50){
+            System.out.println("Your bond with " + species + " is somewhat strong. Let's make some good progress with it!");
+        }
+        else{
+            System.out.println("Hmmm...I sense that your bond with " + species + " is quite weak. Try to feed it whenever you can.");
+        }
     }
+
+    public static
+
 
 }
