@@ -11,6 +11,7 @@ public class Nudgemon {
         loveRating = 0;
     }
 
+
     public void printInfo(){
         System.out.println("This Nudgemon is a " + species + ". Its type is " + type + ".");
         if (loveRating == 100){
@@ -30,7 +31,7 @@ public class Nudgemon {
         }
     }
 
-    public static
+
 
 
 }
