@@ -3,12 +3,14 @@ public class Nudgemon {
     public int nudgedexNumber;
     public String type;
     public int loveRating;
+    public int health;
 
     public Nudgemon(int n, String s, String t){
         species = s;
         nudgedexNumber = n;
         type = t;
         loveRating = 0;
+        health = 100;
     }
 
 
