@@ -8,12 +8,12 @@ public class Main {
         allNudgemon[0] = new Nudgemon(1, "Torchicken", "Fire");
         allNudgemon[1] = new Nudgemon(2, "Mudkipper", "Water");
         allNudgemon[2] = new Nudgemon(3, "Trekko", "Grass");
-        allNudgemon[3] = new Nudgemon (4, "Eeveeon", "Fire");
-        allNudgemon[4] = new Nudgemon(5, "Geobro", "Water");
-        allNudgemon[5] = new Nudgemon (6, "Articuny", "Grass");
-        allNudgemon[6] = new Nudgemon(7,"Pikachoo", "Fire");
-        allNudgemon[7] = new Nudgemon(8, "Dugduo", "Water");
-        allNudgemon[8] = new Nudgemon (9, "Dogerpie", "Grass");
+        allNudgemon[3] = new Nudgemon (4, "Burnmander", "Fire");
+        allNudgemon[4] = new Nudgemon(5, "Spritzle", "Water");
+        allNudgemon[5] = new Nudgemon (6, "Bulbasore", "Grass");
+        allNudgemon[6] = new Nudgemon(7,"Fireeon", "Fire");
+        allNudgemon[7] = new Nudgemon(8, "Watereon", "Water");
+        allNudgemon[8] = new Nudgemon (9, "Weirdish", "Grass");
         // starting sequence
         System.out.print("Hello trainer! My name is Professor Ginkgo. What's yours? \nMy name is: ");
         String playerName = s.nextLine();
@@ -27,7 +27,7 @@ public class Main {
 
         System.out.println("What would you like to do now? \n 1. Explore! \n 2. Check hotbar. \n 3. Exchange Pokemon w/ Prof. Ginkgo. \n 4. Quit.");
         //explore
-        int eventNum = (int)(Math.random() * 3 + 1);
+        int eventNum = 1;
         if (eventNum == 1){
             battle();
         } else if (eventNum == 3){
@@ -46,11 +46,74 @@ public class Main {
         while (battleNudgemon.health != 0 || partner.health != 0){
             System.out.println("What would you like to do? \n 1. Fight \n 2. Run \n 3. Switch Nudgemon");
             int battleChoice = s.nextInt();
-            if (battleChoice == 1 && partner.type ==)
+            int opponentDamage = 10;
+            int partnerDamage = 10;
+            if (battleChoice == 1){
+                if(partner.type.equals("Fire")){
+                    System.out.println(partner.species+ " did Flamethrower!");
+                    if (battleNudgemon.type.equals("Grass")) {
+                        opponentDamage = 20;
+                        System.out.println("It's super effective!");
+                        System.out.println(battleNudgemon.species + " did Razor Blade! \n It's not very effective...");
+                        partnerDamage = 5;
+                        }
+                    else if (battleNudgemon.type.equals("Water")){
+                        opponentDamage = 5;
+                        System.out.println("It's not very effective...");
+                        System.out.println(battleNudgemon.species + " did Water Gun! \n It's super effective!");
+                        partnerDamage = 20;
+                    }
+                    else{
+                        System.out.println(battleNudgemon.species + " did Flamethrower!");
+                    }
+
+                }
+                if(partner.type.equals("Water")){
+                    System.out.println(partner.species + " did Water Gun!");
+                    if (battleNudgemon.type.equals("Fire")) {
+                        opponentDamage = 20;
+                        System.out.println("It's super effective!");
+                        System.out.println(battleNudgemon.species + " did Flamethrower! \n It's not very effective...");
+                        partnerDamage = 5;
+                    }
+                    else if (battleNudgemon.type.equals("Grass")){
+                        opponentDamage = 5;
+                        System.out.println("It's not very effective...");
+                        System.out.println(battleNudgemon.species + " did Razor Leaf! \n It's super effective!");
+                        partnerDamage = 20;
+                    }
+                    else{
+                        System.out.println(battleNudgemon.species + " did Water Gun!");
+                    }
+
+                }
+                if(partner.type.equals("Grass")){
+                    System.out.println(partner.species + " did Razor Leaf!");
+                    if (battleNudgemon.type.equals("Water")) {
+                        opponentDamage = 20;
+                        System.out.println("It's super effective!");
+                        System.out.println(battleNudgemon.species + " did Water Gun! \n It's not very effective...");
+                        partnerDamage = 5;
+                    }
+                    else if (battleNudgemon.type.equals("Fire")){
+                        opponentDamage = 5;
+                        System.out.println("It's not very effective...");
+                        System.out.println(battleNudgemon.species + " did Flamethrower! \n It's super effective!");
+                        partnerDamage = 20;
+                    }
+                    else{
+                        System.out.println(battleNudgemon.species + " did Razor Leaf!");
+                    }
+
+                }
+                battleNudgemon.health = battleNudgemon.health - opponentDamage;
+                System.out.println("Opponent's Health: " + battleNudgemon.health + "/100");
+                partner.health = partner.health - partnerDamage;
+                System.out.println("Partner's Health: " + partner.health + "/100");
+            }
         }
 
-    }
-
+        }
     public static void feed(){
 
     }
@@ -65,4 +128,5 @@ public class Main {
             }
         }
     }
-}
+    }
+
