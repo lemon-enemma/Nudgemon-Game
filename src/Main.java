@@ -24,10 +24,11 @@ public class Main {
             System.out.println("You got " + hotbar[0].species + "!");
         }
         System.out.println("Good luck on your journey!");
-
+        hotbar[1] = allNudgemon[4];
         System.out.println("What would you like to do now? \n 1. Explore! \n 2. Check hotbar. \n 3. Exchange Pokemon w/ Prof. Ginkgo. \n 4. Quit.");
         //explore
-        int eventNum = 1;
+        int eventNum = (int) (Math.random()*3+1);
+        eventNum = 1;
         if (eventNum == 1){
             battle();
         } else if (eventNum == 3){
@@ -41,10 +42,23 @@ public class Main {
         int battleIndex = (int) (Math.random()*9);
         Nudgemon battleNudgemon = allNudgemon[battleIndex];
         Nudgemon partner = hotbar[0];
+        Boolean loss = false;
+        int numFainted = 0;
+        int numHotbar = 0;
         System.out.println("Uh oh! You are being challenged by a " + battleNudgemon.species + "!");
         System.out.println("Go, " + partner.species+ "!");
-        while (battleNudgemon.health != 0 || partner.health != 0){
-            System.out.println("What would you like to do? \n 1. Fight \n 2. Run \n 3. Switch Nudgemon");
+        while (battleNudgemon.health != 0 && !loss){
+            for (int i = 0; hotbar[i] != null; i++){
+                if (hotbar[i].health == 0){
+                    numFainted++;
+                }
+                numHotbar++;
+            }
+            if (numFainted == numHotbar){
+                System.out.println("All of your Nudgemon have fainted! You lost!");
+                loss = true;
+            }
+            System.out.println("What would you like to do? \n 1. Fight \n 2. Switch Nudgemon");
             int battleChoice = s.nextInt();
             int opponentDamage = 10;
             int partnerDamage = 10;
@@ -111,9 +125,27 @@ public class Main {
                 partner.health = partner.health - partnerDamage;
                 System.out.println("Partner's Health: " + partner.health + "/100");
             }
+            if (battleChoice == 2 || partner.health == 0){
+                System.out.println("You are carrying: ");
+                for (int i = 0; hotbar[i] != null; i++){
+                    System.out.println(i+1 + ". " + hotbar[i].species);
+            }
+                System.out.println("Which Nudgemon would you like to take out?");
+                int indexSwitch = s.nextInt();
+                while (hotbar[indexSwitch-1].health == 0){
+                    System.out.println("This Nudgemon has fainted!");
+                    System.out.println("Which Nudgemon would you like to take out?");
+                    indexSwitch = s.nextInt();
+                }
+                System.out.println("Come back, " + partner.species + "!");
+                partner = hotbar[indexSwitch-1];
+                System.out.println("Go, " + partner.species + "!");
         }
 
+
         }
+
+    }
     public static void feed(){
 
     }
