@@ -25,6 +25,7 @@ public class Main {
         }
         System.out.println("Good luck on your journey!");
         hotbar[1] = allNudgemon[4];
+        hotbar[2] = allNudgemon[8];
         System.out.println("What would you like to do now? \n 1. Explore! \n 2. Check hotbar. \n 3. Exchange Pokemon w/ Prof. Ginkgo. \n 4. Quit.");
         //explore
         int eventNum = (int) (Math.random()*3+1);
@@ -48,7 +49,7 @@ public class Main {
         int numHotbar = 0;
         System.out.println("Uh oh! You are being challenged by a " + battleNudgemon.species + "!");
         System.out.println("Go, " + partner.species+ "!");
-        while (battleNudgemon.health != 0 && !loss){
+        while (battleNudgemon.health != 0 && !loss && !win){
             for (int i = 0; hotbar[i] != null; i++){
                 if (hotbar[i].health == 0){
                     numFainted++;
@@ -59,40 +60,41 @@ public class Main {
                 System.out.println("All of your Nudgemon have fainted! You lost!");
                 loss = true;
             }
-            if (battleNudgemon.health == 0){
+            if (battleNudgemon.health <= 0){
+                win = true;
                 System.out.println("Your opponent has fainted! Would you like to catch it? Y/N");
-                String catchDecision = s.nextLine;
+                String catchDecision = s.nextLine();
                 if (catchDecision.equals("Y") || catchDecision.equals("y")){
-                    i = 0;
-                    while (hotbar[i] != null && i <=5){
-                        i++;
+                    int j = 0;
+                    while (hotbar[j] != null && j <=5){
+                        j++;
                     }
-                    if (i < 5){
-                        hotbar[i+1] = battleNudgemon;
-                        System.out.println("You've caught " + battleNudgemon.species + "!")
+                    if (j < 5){
+                        hotbar[j+1] = battleNudgemon;
+                        System.out.println("You've caught " + battleNudgemon.species + "!");
                     }
                     else {
                         System.out.println("Your hotbar is full. Would you like to discard a Nudgemon? Y/N");
-                        String discardDecision = s.nextLine;
+                        String discardDecision = s.nextLine();
                         if (discardDecision.equals("Y") || discardDecision.equals("y")){
-                            System.out.println("You are carrying:");      
+                            System.out.println("You are carrying:");
                             for (int i = 0; hotbar[i] != null; i++){
-                            System.out.println(i+1 + ". " + hotbar[i].species);
-                        }
+                                System.out.println(i+1 + ". " + hotbar[i].species);
+                            }
                             System.out.println("Which Nudgemon would you like to discard?");
-                            int discardIndex = s.nextInt;
+                            int discardIndex = s.nextInt();
                             hotbar[discardIndex - 1] = battleNudgemon;
-                            System.out.println("You have caught " + battleNudgemon.species + "!")
-                    }
+                            System.out.println("You have caught " + battleNudgemon.species + "!");
+                        }
                         if(discardDecision.equals("N") || discardDecision.equals("n")){
                             System.out.println(battleNudgemon.species + " has run away!");
                         }
+                    }
+
                 }
-                
-            }
             }
 
-            if (!loss){
+            if (!loss && !win){
                 System.out.println("What would you like to do? \n 1. Fight \n 2. Switch Nudgemon");
                 int battleChoice = s.nextInt();
                 int opponentDamage = 10;
@@ -176,6 +178,49 @@ public class Main {
                     partner = hotbar[indexSwitch-1];
                     System.out.println("Go, " + partner.species + "!");
         }
+            }
+            for (int i = 0; hotbar[i] != null; i++){
+                if (hotbar[i].health == 0){
+                    numFainted++;
+                }
+                numHotbar++;
+            }
+            if (numFainted == numHotbar){
+                System.out.println("All of your Nudgemon have fainted! You lost!");
+                loss = true;
+            }
+            if (battleNudgemon.health <= 0){
+                win = true;
+                System.out.println("Your opponent has fainted! Would you like to catch it? Y/N");
+                String catchDecision = s.nextLine();
+                if (catchDecision.equals("Y") || catchDecision.equals("y")){
+                    int j = 0;
+                    while (hotbar[j] != null && j <=5){
+                        j++;
+                    }
+                    if (j < 5){
+                        hotbar[j+1] = battleNudgemon;
+                        System.out.println("You've caught " + battleNudgemon.species + "!");
+                    }
+                    else {
+                        System.out.println("Your hotbar is full. Would you like to discard a Nudgemon? Y/N");
+                        String discardDecision = s.nextLine();
+                        if (discardDecision.equals("Y") || discardDecision.equals("y")){
+                            System.out.println("You are carrying:");
+                            for (int i = 0; hotbar[i] != null; i++){
+                                System.out.println(i+1 + ". " + hotbar[i].species);
+                            }
+                            System.out.println("Which Nudgemon would you like to discard?");
+                            int discardIndex = s.nextInt();
+                            hotbar[discardIndex - 1] = battleNudgemon;
+                            System.out.println("You have caught " + battleNudgemon.species + "!");
+                        }
+                        if(discardDecision.equals("N") || discardDecision.equals("n")){
+                            System.out.println(battleNudgemon.species + " has run away!");
+                        }
+                    }
+
+                }
             }
  
         }
