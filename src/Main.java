@@ -43,6 +43,7 @@ public class Main {
         Nudgemon battleNudgemon = allNudgemon[battleIndex];
         Nudgemon partner = hotbar[0];
         Boolean loss = false;
+        Boolean win = false;
         int numFainted = 0;
         int numHotbar = 0;
         System.out.println("Uh oh! You are being challenged by a " + battleNudgemon.species + "!");
@@ -58,91 +59,125 @@ public class Main {
                 System.out.println("All of your Nudgemon have fainted! You lost!");
                 loss = true;
             }
-            System.out.println("What would you like to do? \n 1. Fight \n 2. Switch Nudgemon");
-            int battleChoice = s.nextInt();
-            int opponentDamage = 10;
-            int partnerDamage = 10;
-            if (battleChoice == 1){
-                if(partner.type.equals("Fire")){
-                    System.out.println(partner.species+ " did Flamethrower!");
-                    if (battleNudgemon.type.equals("Grass")) {
-                        opponentDamage = 20;
-                        System.out.println("It's super effective!");
-                        System.out.println(battleNudgemon.species + " did Razor Blade! \n It's not very effective...");
-                        partnerDamage = 5;
+            if (battleNudgemon.health == 0){
+                System.out.println("Your opponent has fainted! Would you like to catch it? Y/N");
+                String catchDecision = s.nextLine;
+                if (catchDecision.equals("Y") || catchDecision.equals("y")){
+                    i = 0;
+                    while (hotbar[i] != null && i <=5){
+                        i++;
+                    }
+                    if (i < 5){
+                        hotbar[i+1] = battleNudgemon;
+                        System.out.println("You've caught " + battleNudgemon.species + "!")
+                    }
+                    else {
+                        System.out.println("Your hotbar is full. Would you like to discard a Nudgemon? Y/N");
+                        String discardDecision = s.nextLine;
+                        if (discardDecision.equals("Y") || discardDecision.equals("y")){
+                            System.out.println("You are carrying:");      
+                            for (int i = 0; hotbar[i] != null; i++){
+                            System.out.println(i+1 + ". " + hotbar[i].species);
                         }
-                    else if (battleNudgemon.type.equals("Water")){
-                        opponentDamage = 5;
-                        System.out.println("It's not very effective...");
-                        System.out.println(battleNudgemon.species + " did Water Gun! \n It's super effective!");
-                        partnerDamage = 20;
+                            System.out.println("Which Nudgemon would you like to discard?");
+                            int discardIndex = s.nextInt;
+                            hotbar[discardIndex - 1] = battleNudgemon;
+                            System.out.println("You have caught " + battleNudgemon.species + "!")
                     }
-                    else{
-                        System.out.println(battleNudgemon.species + " did Flamethrower!");
-                    }
-
+                        if(discardDecision.equals("N") || discardDecision.equals("n")){
+                            System.out.println(battleNudgemon.species + " has run away!");
+                        }
                 }
-                if(partner.type.equals("Water")){
-                    System.out.println(partner.species + " did Water Gun!");
-                    if (battleNudgemon.type.equals("Fire")) {
-                        opponentDamage = 20;
-                        System.out.println("It's super effective!");
-                        System.out.println(battleNudgemon.species + " did Flamethrower! \n It's not very effective...");
-                        partnerDamage = 5;
-                    }
-                    else if (battleNudgemon.type.equals("Grass")){
-                        opponentDamage = 5;
-                        System.out.println("It's not very effective...");
-                        System.out.println(battleNudgemon.species + " did Razor Leaf! \n It's super effective!");
-                        partnerDamage = 20;
-                    }
-                    else{
-                        System.out.println(battleNudgemon.species + " did Water Gun!");
-                    }
-
-                }
-                if(partner.type.equals("Grass")){
-                    System.out.println(partner.species + " did Razor Leaf!");
-                    if (battleNudgemon.type.equals("Water")) {
-                        opponentDamage = 20;
-                        System.out.println("It's super effective!");
-                        System.out.println(battleNudgemon.species + " did Water Gun! \n It's not very effective...");
-                        partnerDamage = 5;
-                    }
-                    else if (battleNudgemon.type.equals("Fire")){
-                        opponentDamage = 5;
-                        System.out.println("It's not very effective...");
-                        System.out.println(battleNudgemon.species + " did Flamethrower! \n It's super effective!");
-                        partnerDamage = 20;
-                    }
-                    else{
-                        System.out.println(battleNudgemon.species + " did Razor Leaf!");
-                    }
-
-                }
-                battleNudgemon.health = battleNudgemon.health - opponentDamage;
-                System.out.println("Opponent's Health: " + battleNudgemon.health + "/100");
-                partner.health = partner.health - partnerDamage;
-                System.out.println("Partner's Health: " + partner.health + "/100");
+                
             }
-            if (battleChoice == 2 || partner.health == 0){
-                System.out.println("You are carrying: ");
-                for (int i = 0; hotbar[i] != null; i++){
-                    System.out.println(i+1 + ". " + hotbar[i].species);
             }
-                System.out.println("Which Nudgemon would you like to take out?");
-                int indexSwitch = s.nextInt();
-                while (hotbar[indexSwitch-1].health == 0){
-                    System.out.println("This Nudgemon has fainted!");
+
+            if (!loss){
+                System.out.println("What would you like to do? \n 1. Fight \n 2. Switch Nudgemon");
+                int battleChoice = s.nextInt();
+                int opponentDamage = 10;
+                int partnerDamage = 10;
+                if (battleChoice == 1){
+                    if(partner.type.equals("Fire")){
+                        System.out.println(partner.species+ " did Flamethrower!");
+                        if (battleNudgemon.type.equals("Grass")) {
+                            opponentDamage = 20;
+                            System.out.println("It's super effective!");
+                            System.out.println(battleNudgemon.species + " did Razor Blade! \n It's not very effective...");
+                            partnerDamage = 5;
+                            }
+                        else if (battleNudgemon.type.equals("Water")){
+                            opponentDamage = 5;
+                            System.out.println("It's not very effective...");
+                            System.out.println(battleNudgemon.species + " did Water Gun! \n It's super effective!");
+                            partnerDamage = 20;
+                        }
+                        else{
+                            System.out.println(battleNudgemon.species + " did Flamethrower!");
+                        }
+
+                    }
+                    if(partner.type.equals("Water")){
+                        System.out.println(partner.species + " did Water Gun!");
+                        if (battleNudgemon.type.equals("Fire")) {
+                            opponentDamage = 20;
+                            System.out.println("It's super effective!");
+                            System.out.println(battleNudgemon.species + " did Flamethrower! \n It's not very effective...");
+                            partnerDamage = 5;
+                        }
+                        else if (battleNudgemon.type.equals("Grass")){
+                            opponentDamage = 5;
+                            System.out.println("It's not very effective...");
+                            System.out.println(battleNudgemon.species + " did Razor Leaf! \n It's super effective!");
+                            partnerDamage = 20;
+                        }
+                        else{
+                            System.out.println(battleNudgemon.species + " did Water Gun!");
+                        }
+
+                    }
+                    if(partner.type.equals("Grass")){
+                        System.out.println(partner.species + " did Razor Leaf!");
+                        if (battleNudgemon.type.equals("Water")) {
+                            opponentDamage = 20;
+                            System.out.println("It's super effective!");
+                            System.out.println(battleNudgemon.species + " did Water Gun! \n It's not very effective...");
+                            partnerDamage = 5;
+                        }
+                        else if (battleNudgemon.type.equals("Fire")){
+                            opponentDamage = 5;
+                            System.out.println("It's not very effective...");
+                            System.out.println(battleNudgemon.species + " did Flamethrower! \n It's super effective!");
+                            partnerDamage = 20;
+                        }
+                        else{
+                            System.out.println(battleNudgemon.species + " did Razor Leaf!");
+                        }
+
+                    }
+                    battleNudgemon.health = battleNudgemon.health - opponentDamage;
+                    System.out.println("Opponent's Health: " + battleNudgemon.health + "/100");
+                    partner.health = partner.health - partnerDamage;
+                    System.out.println("Partner's Health: " + partner.health + "/100");
+                }
+                if (battleChoice == 2 || partner.health == 0){
+                    System.out.println("You are carrying: ");
+                    for (int i = 0; hotbar[i] != null; i++){
+                        System.out.println(i+1 + ". " + hotbar[i].species);
+                }
                     System.out.println("Which Nudgemon would you like to take out?");
-                    indexSwitch = s.nextInt();
-                }
-                System.out.println("Come back, " + partner.species + "!");
-                partner = hotbar[indexSwitch-1];
-                System.out.println("Go, " + partner.species + "!");
+                    int indexSwitch = s.nextInt();
+                    while (hotbar[indexSwitch-1].health == 0){
+                        System.out.println("This Nudgemon has fainted!");
+                        System.out.println("Which Nudgemon would you like to take out?");
+                        indexSwitch = s.nextInt();
+                    }
+                    System.out.println("Come back, " + partner.species + "!");
+                    partner = hotbar[indexSwitch-1];
+                    System.out.println("Go, " + partner.species + "!");
         }
-
-
+            }
+ 
         }
 
     }
