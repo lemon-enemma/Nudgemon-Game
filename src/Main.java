@@ -25,6 +25,7 @@ public class Main {
             System.out.println("You got " + hotbar[0].species + "!");
         }
         System.out.println("Good luck on your journey!");
+        //gameplay starts here
         while (play) {
             System.out.println("What would you like to do now? \n1. Explore! \n2. Check hotbar. \n3. Quit.");
             //explore
