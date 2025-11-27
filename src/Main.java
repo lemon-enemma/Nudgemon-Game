@@ -28,7 +28,6 @@ public class Main {
         //gameplay starts here
         while (play) {
             System.out.println("What would you like to do now? \n1. Explore! \n2. Check hotbar. \n3. Quit.");
-            //explore
             int startChoice = s.nextInt();
             s.nextLine();
             if (startChoice == 1){
@@ -61,14 +60,14 @@ public class Main {
                         int statsIndex = s.nextInt();
                         s.nextLine();
                         hotbar[statsIndex-1].printInfo();
-                }
+                    }
                 }
             }
             if (startChoice == 3){
                 quit();
             }
+        }
     }
-}
     public static void battle(){
         int battleIndex = (int) (Math.random()*9);
         Nudgemon battleNudgemon = allNudgemon[battleIndex];
@@ -123,7 +122,6 @@ public class Main {
                             System.out.println(battleNudgemon.species + " has run away!");
                         }
                     }
-
                 }
             }
 
@@ -135,7 +133,7 @@ public class Main {
                 int partnerDamage = 10;
                 if (battleChoice == 1){
                     if(partner.type.equals("Fire")){
-                        System.out.println(partner.species+ " did Flamethrower!");
+                        System.out.println(partner.species + " did Flamethrower!");
                         if (battleNudgemon.type.equals("Grass")) {
                             opponentDamage = 20;
                             System.out.println("It's super effective!");
@@ -226,9 +224,7 @@ public class Main {
                     }
                 }
             }
-
         }
-
     }
     public static void feed(){
         System.out.println("You found a berry! You are carrying:");
